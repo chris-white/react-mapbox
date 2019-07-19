@@ -1,0 +1,12 @@
+
+
+# ignore compiled resources
+node_modules
+/build
+src/semantic/dist
+
+# ignore semantic as a whole for now (while we're not customizing LESS)
+src/semantic/
+
+# IDE 
+react-mapbox-ui.iml

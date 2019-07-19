@@ -1,0 +1,8 @@
+
+#mapbox-gl-map {
+
+}
+
+#mapbox-gl-map .mapboxgl-control-container .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+    display: none;
+}
