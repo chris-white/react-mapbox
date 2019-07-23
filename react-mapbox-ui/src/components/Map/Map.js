@@ -21,7 +21,12 @@ class Map extends Component {
             zIndex: 1
         };
         this.darwin = [130.991197, -12.492045];
-        this.california = [-122.447303, 37.753574];
+        this.australiaBounds = [
+            [100.508598, -50.270123], // south west
+            [170.128466, 0] // north east
+        ];
+
+        this.mapBounds = this.australiaBounds;
         this.mapCenter = this.darwin;
     }
 
@@ -65,7 +70,8 @@ class Map extends Component {
             container: 'mapbox-gl-map',
             zoom: 13,
             center: this.mapCenter,
-            style: process.env.REACT_APP_MAP_HOST + 'styles/osm-bright/style.json'
+            style: process.env.REACT_APP_MAP_HOST + 'styles/osm-bright/style.json',
+            maxBounds: this.mapBounds
         })
     }
 

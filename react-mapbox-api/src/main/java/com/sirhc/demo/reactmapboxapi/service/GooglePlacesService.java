@@ -47,7 +47,7 @@ public class GooglePlacesService {
         try {
             AutocompletePrediction[] searchResults = PlacesApi
                     .placeAutocomplete(geoApiContext,searchTerm, token)
-                    .components()
+                    .components(componentFilter)
                     .await();
 
             return new AddressAutoCompleteDto(Arrays.asList(searchResults), AddressSearchErrorType.NONE, false, token.getUUID().toString());
