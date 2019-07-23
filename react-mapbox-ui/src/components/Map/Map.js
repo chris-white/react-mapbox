@@ -4,18 +4,17 @@ import mapboxgl from 'mapbox-gl'
 // import { OSMLiberty } from '../service/VectorMapStyleService'
 
 import './Map.css';
+import {connect} from "react-redux";
 
 class Map extends Component {
 
     state = {
-        mapboxApiAccessToken: "pk.eyJ1IjoiY2hyaXN3aGl0ZTg5IiwiYSI6ImNqeTJzMGQ1azByeTUzbW81eGJtMTB2NzEifQ.5OQqP3LpYuJOA2iCTD_C8Q"
+        mapboxApiAccessToken: process.env.REACT_APP_MAP_MAPBOX_API_KEY
     };
 
     constructor(props) {
         super(props);
         this.mapCss = {
-            // width: '100vw',
-            // height: '100vh',
             position: 'absolute',
             top: 0, bottom: 0,
             width: '100%',
@@ -39,14 +38,26 @@ class Map extends Component {
      */
     componentDidMount() {
         mapboxgl.accessToken = this.state.mapboxApiAccessToken
-        this.map = this.createMap()
+        this.map = this.createMap();
 
         this.map.on('load', () => {
             // this.map.addLayer(this.mapBoxLayer())
             this.map.addLayer(this.osmVectorLayer())
         })
+    }
 
-        // this.map.addLayer(this.mapBoxLayer())
+    componentDidUpdate() {
+        this.moveToLocation();
+    }
+
+    moveToLocation = () => {
+        const {lng, lat} = this.props.selectedAddress.geometry.location;
+        this.map.flyTo({
+            center: [lng, lat],
+            zoom: 18,
+            curve: 1,
+            speed: 2,
+        });
     }
 
     createMap = () => {
@@ -54,8 +65,7 @@ class Map extends Component {
             container: 'mapbox-gl-map',
             zoom: 13,
             center: this.mapCenter,
-            style: 'http://localhost:8080/styles/osm-liberty/style.json'
-            // style: 'https://api.maptiler.com/maps/66e665b5-c8bd-4e4e-8296-a67ae21f0ff8/style.json?key=Vds451goKUrAI4u6TTQb'
+            style: process.env.REACT_APP_MAP_HOST + 'styles/osm-bright/style.json'
         })
     }
 
@@ -84,11 +94,15 @@ class Map extends Component {
         return {
             "source": {
                 type: 'vector',
-                url: 'http://localhost:8080/'
+                url: process.env.REACT_APP_MAP_HOST
             }
         }
     }
 }
 
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {selectedAddress : state.selectedAddress};
+}
 
-export default Map
+export default connect(mapStateToProps)(Map);

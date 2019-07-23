@@ -1,0 +1,9 @@
+/* Constants representing Redux action types*/
+
+export const SELECT_ADDRESS = "SELECT_ADDRESS";
+export const UPDATE_SELECTED_ADDRESS_DETAILS = "UPDATE_SELECTED_ADDRESS_DETAILS";
+
+export const SEARCH_UPDATED = "SEARCH_UPDATED";
+export const UPDATE_SEARCH_RESULTS = "UPDATE_SEARCH_RESULTS";
+
+export const UPDATE_SEARCH_TOKEN = "UPDATE_SEARCH_TOKEN";
