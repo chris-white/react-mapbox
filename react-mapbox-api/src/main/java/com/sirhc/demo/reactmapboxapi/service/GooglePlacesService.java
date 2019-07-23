@@ -25,7 +25,6 @@ import java.util.UUID;
 public class GooglePlacesService {
 
     private final GeoApiContext geoApiContext;
-
     private ComponentFilter componentFilter;
 
     public GooglePlacesService(GeoApiContext geoApiContext) {

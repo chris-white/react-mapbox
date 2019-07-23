@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## Google Properties file (contains private API keys)
+/src/main/resources/google-api.properties
