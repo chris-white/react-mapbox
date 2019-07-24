@@ -14,47 +14,82 @@ const addressSearch = axios.create({
  *
  * @param searchTerm
  */
-export const findAddress = async (searchTerm, tokenUUID) =>
+export const findAddress = async (searchTerm, tokenUUID, userLocation) =>
 {
-    let options = {
-        responseType: 'json',
-        params: {
-            searchTerm : searchTerm,
-            tokenUUID : tokenUUID
+
+    // default params
+    let data = {
+        searchTerm : searchTerm
+    }
+
+    // optional params
+    if (!_.isEmpty(tokenUUID)){
+        data.tokenUUID = tokenUUID;
+    }
+
+    if (!_.isEmpty(userLocation)){
+        data.userLocation = userLocation;
+    }
+
+    try {
+
+        // await response before continuing function execution.
+        const response  = await addressSearch.post('/addressSearch', data, axiosRestOptions());
+
+        if (response && response.status === 200) {
+            // return only the content of the JSON request body
+            return response.data;
+        }
+        else {
+            return {error : true}
         }
     }
-
-    // await response before continuing function execution.
-    const response  = await addressSearch.get('/addressSearch', options);
-
-    if (response && response.status === 200) {
-        // return only the content of the JSON request body
-        return response.data;
-    }
-    else {
-        // TODO: handle any error cases here (Modal popup error etc.)
+    catch (e)
+    {
+        return {error : true}
     }
 }
 
 export const findAddressByPlaceId = async (placeId, tokenUUID) =>
 {
-    let options = {
-        responseType: 'json',
-        params: {
-            placeId : placeId,
-            tokenUUID : tokenUUID
+    // default params
+    let data = {
+        placeId : placeId
+    }
+
+    // optional params
+    if (!_.isEmpty(tokenUUID)){
+        data.tokenUUID = tokenUUID;
+    }
+
+
+    try {
+        // await response before continuing function execution.
+        const response  = await addressSearch.post('/findAddressByPlaceId', data , axiosRestOptions());
+
+        if (response && response.status === 200) {
+            // return only the content of the JSON request body
+            return response.data;
+        }
+        else {
+            return {error : true}
         }
     }
-
-    // await response before continuing function execution.
-    const response  = await addressSearch.get('/findAddressByPlaceId', options);
-
-    if (response && response.status === 200) {
-        // return only the content of the JSON request body
-        return response.data;
+    catch (e){
+        return {error : true}
     }
-    else {
-        // TODO: handle any error cases here (Modal popup error etc.)
+}
+
+
+/**
+ * Returns options for an axios POST request to a RESTFUL web service
+ */
+const axiosRestOptions = () => {
+    return {
+        responseType: 'json',
+        headers: {
+            "Content-Type": "application/json",
+        }
     }
 }
 

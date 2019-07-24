@@ -6,7 +6,12 @@ export const selectAddress = (placeId, searchToken) => ({
     payload: {placeId, searchToken}
 });
 
-export const searchUpdated = (searchTerm, searchToken) => ({
+export const searchUpdated = (searchTerm, searchToken, userLocation) => ({
     type: actions.SEARCH_UPDATED,
-    payload: {searchTerm, searchToken}
+    payload: {searchTerm, searchToken, userLocation}
+});
+
+export const setUserLocation = (userLocation) => ({
+    type: actions.SET_USER_LOCATION,
+    payload: userLocation
 });

@@ -5,10 +5,9 @@ import com.google.maps.PlaceAutocompleteRequest;
 import com.google.maps.PlacesApi;
 import com.google.maps.model.AutocompletePrediction;
 import com.google.maps.model.ComponentFilter;
+import com.google.maps.model.LatLng;
 import com.google.maps.model.PlaceDetails;
-import com.sirhc.demo.reactmapboxapi.dto.AddressDetailsDto;
-import com.sirhc.demo.reactmapboxapi.dto.AddressSearchErrorType;
-import com.sirhc.demo.reactmapboxapi.dto.AddressAutoCompleteDto;
+import com.sirhc.demo.reactmapboxapi.dto.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -40,13 +39,14 @@ public class GooglePlacesService {
      * @param tokenUUID
      * @return
      */
-    public AddressAutoCompleteDto findAddressesBySearchTerm(String searchTerm, String tokenUUID){
+    public AddressAutoCompleteDto findAddressesBySearchTerm(AddressSearchRequestDto dto){
 
-        PlaceAutocompleteRequest.SessionToken token = getUUIDfromToken(tokenUUID);
+        PlaceAutocompleteRequest.SessionToken token = getUUIDfromToken(dto.getTokenUUID());
 
         try {
             AutocompletePrediction[] searchResults = PlacesApi
-                    .placeAutocomplete(geoApiContext,searchTerm, token)
+                    .placeAutocomplete(geoApiContext,dto.getSearchTerm(), token)
+                    .location(dto.getUserLocation().toLatLng())
                     .components(componentFilter)
                     .await();
 
@@ -63,17 +63,15 @@ public class GooglePlacesService {
      *
      * Basic place lookups with a existing autocomplete session are uncharged so pass the tokenUUID from the autocomplete sessions
      *
-     * @param placeId
-     * @param tokenUUID
      * @return
      */
-    public AddressDetailsDto findAddressByPlaceId(String placeId, String tokenUUID){
+    public AddressDetailsDto findAddressByPlaceId(AddressDetailsRequestDto dto){
 
-        PlaceAutocompleteRequest.SessionToken token = getUUIDfromToken(tokenUUID);
+        PlaceAutocompleteRequest.SessionToken token = getUUIDfromToken(dto.getTokenUUID());
 
         try {
             PlaceDetails placeDetails =  PlacesApi.placeDetails(geoApiContext,
-                    placeId, token).await();
+                    dto.getPlaceId(), token).await();
 
             return new AddressDetailsDto(false, AddressSearchErrorType.NONE, placeDetails, token.getUUID().toString());
         }

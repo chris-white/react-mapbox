@@ -10,4 +10,13 @@
 
 #searchContainer .ui.search .ui.input {
     width: 100%;
+    opacity: 0.8;
+}
+
+#searchContainer .ui.search  .results {
+    opacity: 0.8;
+}
+
+#searchContainer .ui.search  .results .result {
+    font-size: 0.7em;
 }

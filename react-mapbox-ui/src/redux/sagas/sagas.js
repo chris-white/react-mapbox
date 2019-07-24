@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as actions from "../actionTypes";
 
@@ -8,9 +9,10 @@ const delay = (ms) => new Promise(res => setTimeout(res, ms));
 function* selectParcelAsync(action) {
     let data = yield findAddressByPlaceId(action.payload.placeId, action.payload.searchToken);
 
-    yield put({ type: actions.UPDATE_SEARCH_TOKEN, payload : {tokenUUID : data.tokenUUID}});
-
-    yield put({ type: actions.UPDATE_SELECTED_ADDRESS_DETAILS, payload : data.details});
+    if (!data.error) {
+        yield put({type: actions.UPDATE_SEARCH_TOKEN, payload: {tokenUUID: data.tokenUUID}});
+        yield put({type: actions.UPDATE_SELECTED_ADDRESS_DETAILS, payload: data.details});
+    }
 }
 
 export function* watchSelectParcelAsync() {
@@ -21,11 +23,12 @@ function* searchUpdatedAsync(action) {
     console.log("searchUpdatedAsync");
     yield delay(1000);
 
-    let data = yield findAddress(action.payload.searchTerm, action.payload.searchToken);
+    let data = yield findAddress(action.payload.searchTerm, action.payload.searchToken, action.payload.userLocation);
 
-    yield put({ type: actions.UPDATE_SEARCH_TOKEN, payload : {tokenUUID : data.tokenUUID}});
-
-    yield put({ type: actions.UPDATE_SEARCH_RESULTS, payload: {searchResults : data.results}});
+    if (!data.error) {
+        yield put({type: actions.UPDATE_SEARCH_TOKEN, payload: {tokenUUID: data.tokenUUID}});
+        yield put({type: actions.UPDATE_SEARCH_RESULTS, payload: {searchResults: data.results}});
+    }
 }
 
 export function* watchSearchUpdatedAsync() {

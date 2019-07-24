@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import mapboxgl from 'mapbox-gl'
 
-// import { OSMLiberty } from '../service/VectorMapStyleService'
-
-import './Map.css';
 import {connect} from "react-redux";
+import _ from 'lodash';
+
+import {setUserLocation} from "../../redux/actions";
+import './Map.css';
+
+
 
 class Map extends Component {
 
@@ -38,24 +41,39 @@ class Map extends Component {
     }
 
 
+
+
     /**
      * Called once when the map is mounted
      */
     componentDidMount() {
+
         mapboxgl.accessToken = this.state.mapboxApiAccessToken
         this.map = this.createMap();
 
+        // wait for the mapbox load event before loading third party layers.
         this.map.on('load', () => {
             // this.map.addLayer(this.mapBoxLayer())
             this.map.addLayer(this.osmVectorLayer())
-        })
+        });
+
+        // request the users location.
+        this.requestUserLocation();
     }
 
     componentDidUpdate() {
         this.moveToLocation();
     }
 
+    /**
+     * If a location has been set, move there
+     */
     moveToLocation = () => {
+        // selectedAddress not set, do nothing.
+        if (_.isEmpty(this.props.selectedAddress)){
+            return
+        }
+
         const {lng, lat} = this.props.selectedAddress.geometry.location;
         this.map.flyTo({
             center: [lng, lat],
@@ -63,6 +81,29 @@ class Map extends Component {
             curve: 1,
             speed: 2,
         });
+    }
+
+    /**
+     *
+     * @returns {Map|*|Function|Map<any, any>|Map|Map}
+     */
+    requestUserLocation = () => {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const { latitude, longitude } = position.coords;
+
+                this.setState({
+                    userLocation: { lat: latitude, lng: longitude }
+                    // loading: false
+                });
+
+                this.props.setUserLocation({userLocation: { lat: latitude, lng: longitude }});
+            },
+            () => {
+                // this.setState({ loading: false });
+
+            }
+        );
     }
 
     createMap = () => {
@@ -111,4 +152,4 @@ const mapStateToProps = (state) => {
     return {selectedAddress : state.selectedAddress};
 }
 
-export default connect(mapStateToProps)(Map);
+export default connect(mapStateToProps, { setUserLocation })(Map);

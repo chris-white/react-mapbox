@@ -5,7 +5,6 @@ import {selectAddress, searchUpdated} from '../../redux/actions';
 import _ from 'lodash';
 
 import { Search as SemanticSearch} from 'semantic-ui-react'
-import { findAddress, findAddressByPlaceId } from '../../service/SearchService';
 
 import './Search.css';
 
@@ -27,7 +26,7 @@ class Search extends Component {
      * @param e
      */
     onResultSelect = async (e, {result}) => {
-        this.props.selectAddress(result.placeId, this.props.searchToken);
+        this.props.selectAddress(result["data-result"].placeId, this.props.searchToken);
     }
 
     /**
@@ -37,8 +36,10 @@ class Search extends Component {
      * @returns {*}
      */
     resultRenderer = (result) => {
+        let dataResult = result["data-result"];
+
         return (
-            <p>{result.description}</p>
+            <p>{dataResult.description}</p>
         )
     }
 
@@ -49,7 +50,7 @@ class Search extends Component {
      * @param e
      */
     onSearchChange = (e, {value}) => {
-        this.setState({searchValue : value});
+        this.setState({value : value});
         this.addressSearch(value);
     }
 
@@ -59,7 +60,7 @@ class Search extends Component {
     addressSearch = (searchTerm) => {
         this.setState({isLoading: true})
 
-        this.props.searchUpdated(searchTerm, this.props.searchToken);
+        this.props.searchUpdated(searchTerm, this.props.searchToken, this.props.userLocation);
 
         // set the tokenUUID for the autocomplete session returned by the service.
         this.setState({isLoading: false});
@@ -69,7 +70,7 @@ class Search extends Component {
         return (
             <div id={'searchContainer'}>
                 <SemanticSearch fluid size={'huge'}
-                                // value={this.state.searchValue}
+                                value={this.state.value}
                                 results={this.props.searchResults}
                                 onResultSelect={this.onResultSelect}
                                 onSearchChange={this.onSearchChange}
@@ -83,7 +84,31 @@ class Search extends Component {
 
 const mapStateToProps = (state) => {
     console.log(state);
-    return {searchResults : state.searchResults, searchToken : state.searchToken};
+    return {
+        searchResults : transformSearchResultsForSemanticSearch(state.searchResults),
+        searchToken : state.searchToken,
+        userLocation : state.userLocation};
+}
+
+/**
+ * The Search component of Semantic UI React passes all unknown props from results array entries to a SearchResult entry.
+ * This pollutes the DOM with invalid properties, the work around here passes the properties to data-result so the resulting rendered
+ * dom element has a data-result attribute populated with the required data.
+ *
+ * @param searchResults
+ * @returns {*}
+ */
+const transformSearchResultsForSemanticSearch = (searchResults) => {
+
+    if (_.isEmpty(searchResults)){
+        return;
+    }
+
+    let modifiedArray = searchResults.map((result) => {
+        return {key : result.placeId, "data-result" : {...result}}
+    });
+
+    return modifiedArray;
 }
 
 export default connect(mapStateToProps,{ selectAddress, searchUpdated })(Search);
