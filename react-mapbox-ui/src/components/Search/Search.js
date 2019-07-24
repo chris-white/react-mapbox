@@ -83,7 +83,6 @@ class Search extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         searchResults : transformSearchResultsForSemanticSearch(state.searchResults),
         searchToken : state.searchToken,

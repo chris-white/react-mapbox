@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as actions from "../actionTypes";
 

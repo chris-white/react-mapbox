@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactDOM from "react-dom";
 import mapboxgl from 'mapbox-gl'
 
 import {connect} from "react-redux";
@@ -6,6 +7,8 @@ import _ from 'lodash';
 
 import {setUserLocation} from "../../redux/actions";
 import './Map.css';
+
+import MapMarker from './MapMarker';
 
 
 
@@ -31,17 +34,8 @@ class Map extends Component {
 
         this.mapBounds = this.australiaBounds;
         this.mapCenter = this.darwin;
+        this.markerRef = React.createRef();
     }
-
-    render(){
-        return (
-            <div id={'mapbox-gl-map'} style={this.mapCss}>
-            </div>
-        );
-    }
-
-
-
 
     /**
      * Called once when the map is mounted
@@ -53,8 +47,7 @@ class Map extends Component {
 
         // wait for the mapbox load event before loading third party layers.
         this.map.on('load', () => {
-            // this.map.addLayer(this.mapBoxLayer())
-            this.map.addLayer(this.osmVectorLayer())
+            this.map.addLayer(this.osmVectorLayer());
         });
 
         // request the users location.
@@ -63,6 +56,8 @@ class Map extends Component {
 
     componentDidUpdate() {
         this.moveToLocation();
+
+        this.addMapMarker();
     }
 
     /**
@@ -116,27 +111,6 @@ class Map extends Component {
         })
     }
 
-    // Custom layers (From external sources)
-    mapBoxLayer = () => {
-        return {
-            "id": "terrain-data",
-            "type": "line",
-            "source": {
-                type: 'vector',
-                url: 'mapbox://mapbox.mapbox-terrain-v2'
-            },
-            "source-layer": "contour",
-            "layout": {
-                "line-join": "round",
-                "line-cap": "round"
-            },
-            "paint": {
-                "line-color": "#4d95ff",
-                "line-width": 1
-            }
-        }
-    }
-
     osmVectorLayer = () => {
         return {
             "source": {
@@ -145,10 +119,49 @@ class Map extends Component {
             }
         }
     }
+
+    render(){
+        return (
+            <React.Fragment>
+                <div id={'mapbox-gl-map'} style={this.mapCss}>
+                </div>
+
+                <div style={{display: 'none'}}>
+                    {this.renderMapMarker()}
+                </div>
+
+            </React.Fragment>
+        );
+    }
+
+    renderMapMarker(){
+        if (!_.isEmpty(this.props.selectedAddress))
+        {
+            return <MapMarker ref={this.markerRef}/>
+        }
+    }
+
+    /**
+     * Adds the rendered markers to the map
+     */
+    addMapMarker(){
+
+        if (!_.isEmpty(this.props.selectedAddress)) {
+
+            // get the rendered dom element.
+            let elbyref = ReactDOM.findDOMNode(this.markerRef.current);
+
+            // marker location
+            const {lng, lat} = this.props.selectedAddress.geometry.location;
+
+            new mapboxgl.Marker(elbyref)
+                .setLngLat([lng, lat])
+                .addTo(this.map);
+        }
+    }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {selectedAddress : state.selectedAddress};
 }
 
