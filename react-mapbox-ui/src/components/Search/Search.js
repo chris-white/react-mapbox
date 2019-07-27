@@ -4,7 +4,7 @@ import {selectAddress, searchUpdated} from '../../redux/actions';
 
 import _ from 'lodash';
 
-import { Search as SemanticSearch} from 'semantic-ui-react'
+import { Search as SemanticSearch, Button, Icon} from 'semantic-ui-react'
 
 import './Search.css';
 
@@ -68,16 +68,17 @@ class Search extends Component {
 
     render() {
         return (
-            <div id={'searchContainer'}>
-                <SemanticSearch fluid size={'huge'}
-                                value={this.state.value}
-                                results={this.props.searchResults}
-                                onResultSelect={this.onResultSelect}
-                                onSearchChange={this.onSearchChange}
-                                resultRenderer={this.resultRenderer}
-                                minCharacters={6}
-                                loading={this.state.isLoading}/>
-            </div>
+            <React.Fragment>
+                <SemanticSearch
+                    fluid size={'huge'}
+                    value={this.state.value}
+                    results={this.props.searchResults}
+                    onResultSelect={this.onResultSelect}
+                    onSearchChange={this.onSearchChange}
+                    resultRenderer={this.resultRenderer}
+                    minCharacters={6}
+                    loading={this.state.isLoading}/>
+            </React.Fragment>
         )
     }
 }

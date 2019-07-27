@@ -6,12 +6,28 @@ class MapMarker extends Component {
 
     constructor(props) {
         super(props);
-        this.myRef = props.ref;
+        this.ref = React.createRef();
+    }
+
+    /**
+     * After component mounts and the dom element for a map marker is drawn
+     * call the Mapbox API to add the marker dom element to the map.
+     */
+    componentDidMount = () => {
+        this.addToMap();
+    }
+
+    componentDidUpdate = () => {
+        this.addToMap();
+    }
+
+    addToMap = () => {
+        this.props.addMapMarker(this.ref.current, this.props.location);
     }
 
     render(){
         return (
-            <div id="primaryMapMarker" ref={this.myRef}>
+            <div id="primaryMapMarker" ref={this.ref}>
                 <Popup
                     position='top center'
                     trigger={

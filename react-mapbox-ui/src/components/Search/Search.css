@@ -1,15 +1,7 @@
 
-#searchContainer {
-    z-index: 2;
-    position: absolute;
-    left: 50%;
-    padding-top: 5px;
-    width: 30rem;
-    margin-left: -15rem;
-}
 
 #searchContainer .ui.search .ui.input {
-    width: 100%;
+    /*width: 100%;*/
     opacity: 0.8;
 }
 

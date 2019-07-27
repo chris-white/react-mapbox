@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 
-/* imports for reducers*/
-import { selectedAddress, searchResults, searchToken, userLocation } from "./search";
+/* imports for reducers */
+import * as searchReducers from "./search";
+import * as uiReducers from "./ui";
 
-/* Combines all reducers so they can be easily registered with the redux store. */
-export default combineReducers({ selectedAddress, searchResults, searchToken, userLocation});
+/* Combine reducers from separate files into a single map of all reducers. */
+export default combineReducers({...searchReducers, ...uiReducers})

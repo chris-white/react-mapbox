@@ -15,3 +15,8 @@ export const setUserLocation = (userLocation) => ({
     type: actions.SET_USER_LOCATION,
     payload: userLocation
 });
+
+export const toggleMenu = (toggleMenu) => ({
+    type: actions.TOGGLE_MENU,
+    payload: toggleMenu
+});

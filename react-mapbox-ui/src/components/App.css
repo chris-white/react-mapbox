@@ -1,0 +1,33 @@
+
+/*Container Elements responsible for laying out the Search and Menu Button */
+
+#applicationTopBar {
+    z-index: 2;
+    position: absolute;
+    left: 50%;
+    padding-top: 5px;
+    width: 30rem;
+    margin-left: -15rem;
+    display: inline;
+}
+
+#applicationTopBar #menuButtonContainer {
+    display: inline;
+}
+
+#applicationTopBar #menuButtonContainer #applicationTopBarMenuButton {
+    background: rgb(255, 255, 255);
+    width: 4.5em;
+    opacity: 0.7;
+    height: 3.7em;
+    vertical-align: top;
+    border: 1px solid rgba(34, 36, 38, 0.15);
+}
+
+#applicationTopBar #searchContainer {
+    display: inline;
+}
+
+#applicationTopBar #searchContainer .ui.search {
+    display: inline;
+}

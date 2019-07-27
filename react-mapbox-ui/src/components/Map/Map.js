@@ -34,7 +34,6 @@ class Map extends Component {
 
         this.mapBounds = this.australiaBounds;
         this.mapCenter = this.darwin;
-        this.markerRef = React.createRef();
     }
 
     /**
@@ -56,8 +55,6 @@ class Map extends Component {
 
     componentDidUpdate() {
         this.moveToLocation();
-
-        this.addMapMarker();
     }
 
     /**
@@ -126,6 +123,7 @@ class Map extends Component {
                 <div id={'mapbox-gl-map'} style={this.mapCss}>
                 </div>
 
+                {/* Container div is hidden as mapbox will remove the rendered element from the container in the DOM and place it on the Map */}
                 <div style={{display: 'none'}}>
                     {this.renderMapMarker()}
                 </div>
@@ -134,30 +132,24 @@ class Map extends Component {
         );
     }
 
-    renderMapMarker(){
-        if (!_.isEmpty(this.props.selectedAddress))
-        {
-            return <MapMarker ref={this.markerRef}/>
+    renderMapMarker() {
+        if (!_.isEmpty(this.props.selectedAddress)) {
+            const {lng, lat} = this.props.selectedAddress.geometry.location;
+
+            return <MapMarker addMapMarker={this.addMapMarker} location={[lng, lat]} address={this.props.selectedAddress}/>
         }
     }
 
     /**
-     * Adds the rendered markers to the map
+     * Adds a HTML marker to the map.
+     *
+     * @param markerElement react reference to the element to be drawn on the map.
+     * @param location array of [lng, lat]
      */
-    addMapMarker(){
-
-        if (!_.isEmpty(this.props.selectedAddress)) {
-
-            // get the rendered dom element.
-            let elbyref = ReactDOM.findDOMNode(this.markerRef.current);
-
-            // marker location
-            const {lng, lat} = this.props.selectedAddress.geometry.location;
-
-            new mapboxgl.Marker(elbyref)
-                .setLngLat([lng, lat])
-                .addTo(this.map);
-        }
+    addMapMarker = (ref, location) => {
+        new mapboxgl.Marker(ref)
+            .setLngLat(location)
+            .addTo(this.map);
     }
 }
 
