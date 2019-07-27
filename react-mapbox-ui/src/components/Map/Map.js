@@ -61,13 +61,12 @@ class Map extends Component {
      * If a location has been set, move there
      */
     moveToLocation = () => {
-        // selectedAddress not set, do nothing.
         if (_.isEmpty(this.props.selectedAddress)){
             return
         }
 
         const {lng, lat} = this.props.selectedAddress.geometry.location;
-        this.map.flyTo({
+        this.map.easeTo({
             center: [lng, lat],
             zoom: 18,
             curve: 1,

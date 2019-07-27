@@ -11,6 +11,7 @@ import './Search.css';
 class Search extends Component {
 
     state = {
+        value : '200 Bourke St',
         isLoading: false,
         tokenUUID: "",
         searchResults : {}
