@@ -16,7 +16,17 @@ export const setUserLocation = (userLocation) => ({
     payload: userLocation
 });
 
+export const login = (loginFormData) => ({
+    type: actions.LOGIN,
+    payload: loginFormData
+});
+
 export const toggleMenu = (toggleMenu) => ({
     type: actions.TOGGLE_MENU,
     payload: toggleMenu
+});
+
+export const showLogin = (showLogin) => ({
+    type: actions.SHOW_LOGIN,
+    payload: showLogin
 });

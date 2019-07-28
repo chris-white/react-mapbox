@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 
 import {Menu, Sidebar, Segment, Icon } from 'semantic-ui-react'
 
+import {showLogin} from "../../redux/actions";
+
+
 /**
  * Primary application menu.
  *
@@ -11,6 +14,10 @@ import {Menu, Sidebar, Segment, Icon } from 'semantic-ui-react'
  *
  */
 class AppMenu extends Component {
+
+    loginClicked = (e, {name}) => {
+        this.props.showLogin(true);
+    }
 
     render(){
         return (
@@ -26,7 +33,7 @@ class AppMenu extends Component {
                         visible={this.props.showMenu}
                         width='wide'
                     >
-                        <Menu.Item as='a'>
+                        <Menu.Item as='a' name={"login"} onClick={this.loginClicked}>
                             <Icon name='user' size='small'/>
                             Login
                         </Menu.Item>
@@ -46,8 +53,8 @@ class AppMenu extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        showMenu: state.showMenu
+        showMenu: state.ui.showMenu
     }
 }
 
-export default connect(mapStateToProps)(AppMenu);
+export default connect(mapStateToProps, {showLogin})(AppMenu);

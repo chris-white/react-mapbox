@@ -1,10 +1,18 @@
 import * as actions from "../actionTypes";
 
-/* the name of the export will be the key for the value un the store*/
-export const showMenu = (state = false, action) => {
+export const ui = (state = {}, action) => {
     switch (action.type) {
-        case actions.TOGGLE_MENU: {
-            return action.payload;
+        case actions.TOGGLE_MENU : {
+            return {
+                ...state,
+                showMenu: action.payload
+            };
+        }
+        case actions.SHOW_LOGIN : {
+            return {
+                ...state,
+                showLogin : action.payload
+            };
         }
         default:
             return state;

@@ -9,4 +9,7 @@ export const UPDATE_SEARCH_RESULTS = "UPDATE_SEARCH_RESULTS";
 export const UPDATE_SEARCH_TOKEN = "UPDATE_SEARCH_TOKEN";
 export const SET_USER_LOCATION = "SET_USER_LOCATION";
 
+export const SHOW_LOGIN = "SHOW_LOGIN";
+export const LOGIN = "LOGIN";
+
 export const TOGGLE_MENU = "TOGGLE_MENU";

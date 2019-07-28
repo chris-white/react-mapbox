@@ -5,10 +5,9 @@ import {Button, Icon} from "semantic-ui-react";
 import {toggleMenu} from "../../redux/actions";
 
 import {connect} from "react-redux";
-import _ from 'lodash';
 
 
-class MenuButton extends React.Component {
+class MenuButton extends Component {
 
     render()
     {
@@ -27,7 +26,7 @@ class MenuButton extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        showMenu: state.showMenu
+        showMenu: state.ui.showMenu
     }
 }
 

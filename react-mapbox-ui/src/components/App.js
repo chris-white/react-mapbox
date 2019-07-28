@@ -3,6 +3,7 @@ import Search from './Search/Search';
 import Map from './Map/Map';
 import MenuButton from './Menu/MenuButton';
 import AppMenu from './Menu/AppMenu';
+import LoginModal from './Login/LoginModal';
 
 import './App.css';
 
@@ -28,6 +29,9 @@ class App extends Component {
             <AppMenu>
                 <Map />
             </AppMenu>
+
+            {/*Modals*/}
+            <LoginModal />
 
         </Fragment>
     )
