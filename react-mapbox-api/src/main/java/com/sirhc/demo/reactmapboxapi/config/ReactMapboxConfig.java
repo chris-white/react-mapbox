@@ -1,7 +1,7 @@
 package com.sirhc.demo.reactmapboxapi.config;
 
 import com.google.maps.GeoApiContext;
-import com.sirhc.demo.account.config.AccountConfig;
+import com.sirhc.demo.reactmapboxapi.account.config.AccountConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.*;
     @PropertySource("classpath:application.properties"),
     @PropertySource("classpath:google-api.properties")
 })
-// import the Account Configuration class (the 'accounts' module lives under the package 'com.sirhc.demo.account' which is not scanned by default.)
+// import the Account Configuration class (the 'accounts' module lives under the package 'com.sirhc.demo.reactmapboxapi.account' which is not scanned by default.)
 @Import(value = {AccountConfig.class})
 public class ReactMapboxConfig {
 

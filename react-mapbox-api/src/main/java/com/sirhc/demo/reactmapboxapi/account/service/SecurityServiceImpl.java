@@ -1,4 +1,4 @@
-package com.sirhc.demo.account.service;
+package com.sirhc.demo.reactmapboxapi.account.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

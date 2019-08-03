@@ -1,4 +1,4 @@
-package com.sirhc.demo.account.jwt;
+package com.sirhc.demo.reactmapboxapi.account.jwt;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;

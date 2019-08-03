@@ -1,7 +1,7 @@
-package com.sirhc.demo.account.controller;
+package com.sirhc.demo.reactmapboxapi.account.controller;
 
-import com.sirhc.demo.account.dto.AuthenticationRequest;
-import com.sirhc.demo.account.service.AuthenticationService;
+import com.sirhc.demo.reactmapboxapi.account.dto.AuthenticationRequest;
+import com.sirhc.demo.reactmapboxapi.account.service.AuthenticationService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.ResponseEntity.ok;
 

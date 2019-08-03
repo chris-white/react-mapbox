@@ -1,4 +1,4 @@
-package com.sirhc.demo.account.domain;
+package com.sirhc.demo.reactmapboxapi.account.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

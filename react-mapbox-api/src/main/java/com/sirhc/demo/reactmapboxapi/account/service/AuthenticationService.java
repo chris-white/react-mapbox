@@ -1,9 +1,8 @@
-package com.sirhc.demo.account.service;
+package com.sirhc.demo.reactmapboxapi.account.service;
 
-import com.sirhc.demo.account.dto.AuthenticationRequest;
-import com.sirhc.demo.account.jwt.JwtTokenProvider;
-import com.sirhc.demo.account.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sirhc.demo.reactmapboxapi.account.dto.AuthenticationRequest;
+import com.sirhc.demo.reactmapboxapi.account.jwt.JwtTokenProvider;
+import com.sirhc.demo.reactmapboxapi.account.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,4 +1,4 @@
-package com.sirhc.demo.account.service;
+package com.sirhc.demo.reactmapboxapi.account.service;
 
 public interface SecurityService {
     String findLoggedInUsername();

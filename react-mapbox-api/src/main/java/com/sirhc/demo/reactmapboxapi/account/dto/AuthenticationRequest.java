@@ -1,4 +1,4 @@
-package com.sirhc.demo.account.dto;
+package com.sirhc.demo.reactmapboxapi.account.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
-package com.sirhc.demo.account.service;
+package com.sirhc.demo.reactmapboxapi.account.service;
 
-import com.sirhc.demo.account.domain.User;
+import com.sirhc.demo.reactmapboxapi.account.domain.User;
 
 public interface UserService {
 

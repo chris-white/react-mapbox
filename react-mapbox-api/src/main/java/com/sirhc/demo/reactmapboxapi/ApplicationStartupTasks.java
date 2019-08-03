@@ -1,8 +1,7 @@
 package com.sirhc.demo.reactmapboxapi;
 
 
-import com.sirhc.demo.account.service.UserService;
-import com.sirhc.demo.reactmapboxapi.config.ReactMapboxConfig;
+import com.sirhc.demo.reactmapboxapi.account.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

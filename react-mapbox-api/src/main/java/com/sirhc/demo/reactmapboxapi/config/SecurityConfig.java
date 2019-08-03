@@ -1,7 +1,7 @@
 package com.sirhc.demo.reactmapboxapi.config;
 
-import com.sirhc.demo.account.jwt.JwtConfigurer;
-import com.sirhc.demo.account.jwt.JwtTokenProvider;
+import com.sirhc.demo.reactmapboxapi.account.jwt.JwtConfigurer;
+import com.sirhc.demo.reactmapboxapi.account.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

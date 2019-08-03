@@ -1,6 +1,6 @@
-package com.sirhc.demo.account.controller;
+package com.sirhc.demo.reactmapboxapi.account.controller;
 
-import com.sirhc.demo.account.dto.AuthenticationResponse;
+import com.sirhc.demo.reactmapboxapi.account.dto.AuthenticationResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
