@@ -3,7 +3,7 @@ import * as actions from "../actionTypes";
 /* the name of the export will be the key fo the value un the store*/
 export const selectedAddress = (state = {}, action) => {
     switch (action.type) {
-        case actions.UPDATE_SELECTED_ADDRESS_DETAILS: {
+        case actions.search.UPDATE_SELECTED_ADDRESS_DETAILS: {
             return action.payload;
         }
         default:
@@ -14,7 +14,7 @@ export const selectedAddress = (state = {}, action) => {
 export const searchResults = (state = {}, action) => {
 
     switch (action.type) {
-        case actions.UPDATE_SEARCH_RESULTS: {
+        case actions.search.UPDATE_SEARCH_RESULTS: {
             return action.payload.searchResults;
         }
         default:
@@ -25,7 +25,7 @@ export const searchResults = (state = {}, action) => {
 export const searchToken = (state = "", action) => {
 
     switch (action.type) {
-        case actions.UPDATE_SEARCH_TOKEN: {
+        case actions.search.UPDATE_SEARCH_TOKEN: {
             return action.payload.tokenUUID;
         }
         default:
@@ -36,7 +36,7 @@ export const searchToken = (state = "", action) => {
 
 export const userLocation = (state = {}, action) => {
     switch (action.type) {
-        case actions.SET_USER_LOCATION: {
+        case actions.search.SET_USER_LOCATION: {
             return action.payload.userLocation;
         }
         default:

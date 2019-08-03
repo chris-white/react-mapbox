@@ -9,6 +9,8 @@ import './App.css';
 
 import '../semantic/dist/semantic.css';
 import '../../node_modules/mapbox-gl/dist/mapbox-gl.css'
+import {connect} from "react-redux";
+import {searchUpdated, selectAddress} from "../redux/actions";
 
 class App extends Component {
 
@@ -20,9 +22,14 @@ class App extends Component {
                 <div id={'menuButtonContainer'}>
                     <MenuButton />
                 </div>
-                <div id={'searchContainer'}>
-                    <Search />
-                </div>
+
+                {this.props.auth.token ?
+                    <div id={'searchContainer'}>
+                        <Search />
+                    </div>
+                    :
+                    null
+                }
             </div>
 
             {/*The app Menu pushes along the */}
@@ -39,4 +46,10 @@ class App extends Component {
 
 }
 
-export default App
+const mapStateToProps = (state) => {
+    return {
+        auth : state.login
+    };
+}
+
+export default connect(mapStateToProps)(App);

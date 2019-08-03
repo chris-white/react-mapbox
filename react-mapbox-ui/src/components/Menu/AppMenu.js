@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 
 import {Menu, Sidebar, Segment, Icon } from 'semantic-ui-react'
+import UserCard from './UserCard/UserCard';
 
 import {showLogin} from "../../redux/actions";
 
@@ -25,18 +26,25 @@ class AppMenu extends Component {
                 <Sidebar.Pushable as={Segment}>
                     <Sidebar
                         as={Menu}
-                        animation='push'
+                        animation='overlay'
                         icon='labeled'
-                        inverted
+                        // inverted
                         // onHide={this.handleSidebarHide}
                         vertical
                         visible={this.props.showMenu}
                         width='wide'
+                        style={{backgroundColor : 'rgb(255,255,255,0.7)'}}
                     >
-                        <Menu.Item as='a' name={"login"} onClick={this.loginClicked}>
-                            <Icon name='user' size='small'/>
-                            Login
-                        </Menu.Item>
+
+                        {/*display the logged in user if user is logged in*/}
+                        {this.props.login.username ?
+                            <UserCard /> :
+                            <Menu.Item as='a' name={"login"} onClick={this.loginClicked}>
+                                <Icon name='sign-in' size='small'/>
+                                Login
+                            </Menu.Item>
+                        }
+
                     </Sidebar>
 
                     <Sidebar.Pusher>
@@ -53,7 +61,8 @@ class AppMenu extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        showMenu: state.ui.showMenu
+        showMenu: state.ui.showMenu,
+        login: state.login
     }
 }
 

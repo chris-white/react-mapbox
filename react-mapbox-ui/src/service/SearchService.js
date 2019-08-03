@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import axios from 'axios';
+import * as auth from './auth';
 
 /**
  * An axios search instance for the performing Address Searches
@@ -16,6 +17,7 @@ const addressSearch = axios.create({
  */
 export const findAddress = async (searchTerm, tokenUUID, userLocation) =>
 {
+    console.log();
 
     // default params
     let data = {
@@ -65,7 +67,7 @@ export const findAddressByPlaceId = async (placeId, tokenUUID) =>
 
     try {
         // await response before continuing function execution.
-        const response  = await addressSearch.post('/findAddressByPlaceId', data , axiosRestOptions());
+        const response  = await addressSearch.post('/findAddressByPlaceId', data, axiosRestOptions());
 
         if (response && response.status === 200) {
             // return only the content of the JSON request body
@@ -85,11 +87,12 @@ export const findAddressByPlaceId = async (placeId, tokenUUID) =>
  * Returns options for an axios POST request to a RESTFUL web service
  */
 const axiosRestOptions = () => {
+
     return {
         responseType: 'json',
         headers: {
             "Content-Type": "application/json",
+            "Authorization" : "Bearer " + auth.jwtToken
         }
     }
 }
-

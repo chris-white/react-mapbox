@@ -1,9 +1,7 @@
 package com.sirhc.demo.reactmapboxapi.controller;
 
-import com.google.maps.model.LatLng;
 import com.sirhc.demo.reactmapboxapi.dto.*;
 import com.sirhc.demo.reactmapboxapi.service.GooglePlacesService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

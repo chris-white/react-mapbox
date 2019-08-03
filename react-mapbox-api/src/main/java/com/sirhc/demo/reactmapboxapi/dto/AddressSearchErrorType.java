@@ -4,5 +4,5 @@ public enum AddressSearchErrorType {
     RECAPTCHA_FAILED,
     RECAPTCHA_REQUIRED,
     INTERNAL_ERROR,
-    NONE;
+    NONE
 }

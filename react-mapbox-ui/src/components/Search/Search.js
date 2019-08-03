@@ -4,7 +4,7 @@ import {selectAddress, searchUpdated} from '../../redux/actions';
 
 import _ from 'lodash';
 
-import { Search as SemanticSearch, Button, Icon} from 'semantic-ui-react'
+import { Search as SemanticSearch} from 'semantic-ui-react'
 
 import './Search.css';
 
@@ -88,7 +88,9 @@ const mapStateToProps = (state) => {
     return {
         searchResults : transformSearchResultsForSemanticSearch(state.searchResults),
         searchToken : state.searchToken,
-        userLocation : state.userLocation};
+        userLocation : state.userLocation,
+        auth : state.login
+    };
 }
 
 /**
