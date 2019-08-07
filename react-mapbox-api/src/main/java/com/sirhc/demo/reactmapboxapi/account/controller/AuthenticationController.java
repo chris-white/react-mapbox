@@ -1,13 +1,16 @@
 package com.sirhc.demo.reactmapboxapi.account.controller;
 
 import com.sirhc.demo.reactmapboxapi.account.dto.AuthenticationRequest;
+import com.sirhc.demo.reactmapboxapi.account.dto.AuthenticationResponse;
 import com.sirhc.demo.reactmapboxapi.account.service.AuthenticationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,10 +33,7 @@ public class AuthenticationController {
         try {
             String token = authenticationService.getValidationToken(data);
 
-            Map<Object, Object> model = new HashMap<>();
-            model.put("username", data.getUsername());
-            model.put("token", token);
-            return ok(model);
+            return ok(new AuthenticationResponse(data.getUsername(), token));
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }

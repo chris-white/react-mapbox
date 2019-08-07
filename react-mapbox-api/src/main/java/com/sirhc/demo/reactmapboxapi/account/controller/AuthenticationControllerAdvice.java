@@ -1,8 +1,11 @@
 package com.sirhc.demo.reactmapboxapi.account.controller;
 
 import com.sirhc.demo.reactmapboxapi.account.dto.AuthenticationResponse;
+import com.sirhc.demo.reactmapboxapi.account.jwt.InvalidJwtAuthenticationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -11,21 +14,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.validation.ValidationException;
 
 /**
- * Controller Advice specifically for the {@link AuthenticationController} class.
- * handles exceptions propagated to the Controller converting to suitable JSON responses for the react front-end.
+ * Global Controller Advice
+ * handles exceptions propagated to the Controller ensuring the correct 401 (Unauthorized) responses is generated
  *
  */
-@ControllerAdvice(assignableTypes = {AuthenticationController.class})
+@ControllerAdvice
 public class AuthenticationControllerAdvice extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({ValidationException.class, BadCredentialsException.class})
-    public ResponseEntity<AuthenticationResponse> handleAccessDeniedException(Exception ex, WebRequest request)
+    @ExceptionHandler({InvalidJwtAuthenticationException.class, BadCredentialsException.class, AuthenticationException.class})
+    public ResponseEntity<String> handleInvalidJwtAuthenticationException(Exception ex, WebRequest request)
     {
-        AuthenticationResponse r = new AuthenticationResponse();
-        r.setErrorMessage(ex.getMessage());
-        r.setError(true);
-
-        return ResponseEntity.ok().body(r);
+        return new ResponseEntity(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
 }
